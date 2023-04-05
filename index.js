@@ -2,7 +2,7 @@
 
 //entry point of the server where the server starts
 
-
+// setting up the server
 require('dotenv').config();
 const server = require('./src/server');
 const PORT = process.env.PORT;

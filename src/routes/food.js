@@ -10,7 +10,7 @@ router.post('/', createFood);
 router.put('/:id', updateFood);
 router.delete('/:id', deleteFood);
 
-
+// Function to get all the data from Food model
 async function readFood(req, res, next) {
   let data  = await Food.findAll();
   res.json(data);
