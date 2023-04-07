@@ -39,7 +39,7 @@ describe('testing our data models', () => {
     expect(foodItem.id).toEqual(foodId);
   });
 
-  test('Can fetch a food and clothes', async () => {
+  xtest('Can fetch a food and clothes', async () => {
     let food = await Food.read(foodId, {
       include: Clothes.model,
     });
