@@ -3,6 +3,14 @@
 const server = require('./../server');
 const supertest = require('supertest');
 const request = supertest(server.app);
+const { sequelize } = require('../models');
+
+beforeAll(async() => {
+  await sequelize.sync();
+});
+afterAll(async() => {
+  await sequelize.drop();
+});
 
 describe('Testing the request stataus', () => {
 
@@ -22,33 +30,33 @@ describe('Testing the request stataus', () => {
   });
 
   test('Should post 200 if read a single item using GET', async () => {
-    const response = await request.get('/food/1');
+    const response = await request.get('/clothes/1');
     expect(response.status).toEqual(200);
   });
 
 
   test('Should post 200 if read a list of records using POST', async () => {
     const response = await request
-      .post('/food')
+      .post('/clothes')
       .send({
-        'name': 'lab-strawberry',
-        'taste': 'sweet',
-        'isVegan': false,
-      })
-    ;
+        'brand': 'Uniqlo',
+        'style': 'comfy',
+        'isVintage': false,
+      });
+    console.log(response.body);
     expect(response.status).toEqual(200);
   });
 
 
   test('Should post 200 if read a list of records using PUT', async () => {
-    const res = await request.get('/food');
+    const res = await request.get('/clothes');
     console.log(res.body);
     const response = await request
-      .put(`/food/${res.body[0].id}`)
+      .put(`/clothes/${res.body[0].id}`)
       .send({
-        'name': 'lab-strawberry',
-        'taste': 'bitter',
-        'isVegan': false,
+        'brand': 'lab-strawberry',
+        'style': 'sweet',
+        'isVintage': false,
       });
     // const response = await request.put('/food');
     expect(response.status).toEqual(200);
@@ -56,7 +64,9 @@ describe('Testing the request stataus', () => {
 
 
   test('Should post 200 if read a list of records using DELETE', async () => {
-    const response = await request.delete('/food/1');
+    const res = await request.get('/clothes');
+    const response = await request
+      .delete(`/clothes/${res.body[0].id}`);
     expect(response.status).toEqual(200);
   });
 });
