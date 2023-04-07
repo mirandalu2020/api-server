@@ -2,9 +2,9 @@
 
 
 const { DataTypes } = require('sequelize');
-const { sequelize } = require('./index.js');
+// const { sequelize } = require('./index.js');
 
-const Clothes = sequelize.define('Clothes', {
+const Clothes = (sequelize) => sequelize.define('Clothes', {
   brand: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -19,7 +19,4 @@ const Clothes = sequelize.define('Clothes', {
   },
 });
 
-module.exports = {
-  // sequelize,
-  Clothes,
-};
+module.exports = Clothes;

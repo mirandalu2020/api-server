@@ -1,14 +1,13 @@
 'use strict';
 
 // require('dotenv').config();
-const { DataTypes} = require('sequelize');
-const { sequelize } = require('./index.js');
+const { DataTypes } = require('sequelize');
+// const { sequelize } = require('./index.js');
 
 // const SQL_URL = process.env.SQL_URL || 'sqlite:memory:';
-
 // const sequelize = new Sequelize(SQL_URL);
 
-const Food = sequelize.define('Food', {
+const Food = (sequelize) => sequelize.define('Food', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -21,9 +20,10 @@ const Food = sequelize.define('Food', {
     type:DataTypes.BOOLEAN,
     allowNull:true,
   },
+  dressCode: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
 });
 
-module.exports = {
-  // sequelize,
-  Food,
-};
+module.exports = Food;
